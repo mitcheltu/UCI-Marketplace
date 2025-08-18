@@ -1,0 +1,59 @@
+const pool = require('../config/db');
+
+async function getAllItems() {
+    const result = await pool.query('SELECT * FROM Items;');
+    return result.rows;
+}
+
+async function getTenItems() {
+  const result = await pool.query('SELECT * FROM Items LIMIT 10;');
+  return result.rows;
+}
+
+async function getItemById(itemId) {
+  const result = await pool.query('SELECT * FROM Items WHERE id = $1;', [itemId]);
+  return result.rows[0];
+}
+
+async function addItem(item) {
+  const { user_id, name, description, price, category, image_url } = item;
+  const result = await pool.query(
+    'INSERT INTO Items (user_id, name, description, price, category, image_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
+    [user_id, name, description, price, category, image_url]
+  );
+  return result.rows[0];
+}
+
+// async function updateItem(itemId, item) {
+//   const { user_id, name, description, price, category, image_url } = item;
+//   const result = await pool.query('SELECT * FROM Items WHERE id = $1;', [itemId]);
+//   if (result.rows.length === 0) {
+//     throw new Error('Item not found');
+//   }
+//   const updatedItem = {
+//     user_id: user_id || result.rows[0].user_id,
+//     name: name || result.rows[0].name,
+//     description: description || result.rows[0].description,
+//     price: price || result.rows[0].price,
+//     category: category || result.rows[0].category,
+//     image_url: image_url || result.rows[0].image_url
+//   };
+//   const updateResult = await pool.query(
+//     'UPDATE Items SET user_id = $1, name = $2, description = $3, price = $4, category = $5, image_url = $6 WHERE id = $7 RETURNING *;',
+//     [updatedItem.user_id, updatedItem.name, updatedItem.description, updatedItem.price, updatedItem.category, updatedItem.image_url, itemId]
+//   );
+//   return updateResult.rows[0];
+// }
+
+async function deleteItem(itemId) {
+    const result = await pool.query('DELETE FROM Items WHERE id = $1 RETURNING *;', [itemId]);
+    return result.rows[0];
+}
+module.exports = {
+    getAllItems,
+    getTenItems,
+    getItemById,
+    addItem,
+    // updateItem,
+    deleteItem
+};
