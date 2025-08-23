@@ -1,0 +1,16 @@
+.Home-Body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.item-display-section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 equal-width columns */
+    gap: 1rem; /* space between items */
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box
+}
+

@@ -24,25 +24,26 @@ async function addUser(user) {
   return result.rows[0];
 }
 
-// async function updateUser(userId, user) {
-//   const { name, email, password } = user;
-//   const result = await pool.query(
-//     'UPDATE Users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;',
-//     [name, email, password, userId]
-//   );
-//   return result.rows[0];
-// }
+async function updateUser(userId, user) {
+  const { name, email, password } = user;
+  const result = await pool.query(
+    'UPDATE Users SET name = $1, email = $2, password = $3 WHERE id = $4 RETURNING *;',
+    [name, email, password, userId]
+  );
+  return result.rows[0];
+}
 
 async function deleteUser(userId) {
   const result = await pool.query('DELETE FROM Users WHERE id = $1 RETURNING *;', [userId]);
   return result.rows[0];
 }
 
+
 module.exports = {
     getAllUsers,
     getTenUsers,
     getUserById,
     addUser,
-    // updateUser,
+    updateUser,
     deleteUser
 };

@@ -11,6 +11,10 @@ exports.fetchTenItems = async () => {
   return await itemModel.getTenItems();
 }
 
+// Fetch items by user ID
+exports.fetchItemsByUserId = async (userId) => {
+  return await itemModel.getItemsByUserId(userId);
+};
 
 // Create a new item node
 exports.createItemService = async (file, { user_id, name, description, price, category}) => {
@@ -33,7 +37,7 @@ exports.createItemService = async (file, { user_id, name, description, price, ca
     console.log("Saving item with image_url:", image_url);
   // Save to DB
   const item = await itemModel.addItem({
-    user_id: parseInt(user_id, 10),  // convert to int
+    user_id,  // convert to int
     name,
     description,
     price: parseFloat(price) || null,
@@ -50,10 +54,16 @@ exports.removeItem = async (itemId) => {
   return await itemModel.deleteItem(itemId);
 }
 
-// // Update item details
-// exports.modifyItem = async (itemId, itemData) => {
-//   return await itemModel.updateItem(itemId, itemData);
-// };
+// Update item details
+exports.modifyItem = async (itemId, itemData) => {
+  return await itemModel.updateItem(itemId, itemData);
+};
+
+// Request item trade between users
+exports.requestItemTrade = async (requesterID, receiverID, requesterItems, receiverItems) => {
+  return await itemModel.requestTrade(requesterID, receiverID, requesterItems, receiverItems);
+}
+
 
 // Get item by ID
 exports.fetchItemById = async (itemId) => {

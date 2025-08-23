@@ -1,11 +1,18 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --uci-blue: #005CA9;
+  --uci-gold: #FFC72C;
+  --uci-lightblue: #8FBFE0;
+  --uci-darkblue: #003366;
+  --uci-gray-light: #F5F5F5;
+  --uci-gray: #6E6E6E;
+
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: white;
+  background-color: var(--uci-darkblue);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

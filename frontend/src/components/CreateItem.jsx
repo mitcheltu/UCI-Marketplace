@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./CreateItem.css"
+import "./Modal.css";
 import { createItem } from "../api/itemService";
 
 function CreateItem( {isActive, onClose}) {
@@ -56,6 +56,7 @@ function CreateItem( {isActive, onClose}) {
     
 
     return(
+        <div className={`create-item-modal-overlay ${isActive ? 'active' : ''}`}>
         <div className={`create-item-modal ${isActive ? 'active' : ''}`}>
             <button id="create-item-modal-close-button" onClick={onClose}>Close</button>
             <form onSubmit={handleCreateItem} >
@@ -83,12 +84,13 @@ function CreateItem( {isActive, onClose}) {
                 {preview && (
                     <div>
                     <p>Image Preview:</p>
-                    <img src={preview} alt="Preview" style={{ width: '200px', height: 'auto' }} />
+                    <img src={preview} alt="Preview" style={{ width: '20%', height: 'auto' }} />
                 </div>
                 )}   
                 <input type="submit" value={"submit"}></input>
             </form>
             
+        </div>
         </div>
     )
 }

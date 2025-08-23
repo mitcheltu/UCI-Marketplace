@@ -13,4 +13,6 @@ router.get('/', userController.fetchAllUsers);
 // Route: Get a user by ID
 router.get('/:id', userController.fetchUserById);
 
+
+
 module.exports = router;

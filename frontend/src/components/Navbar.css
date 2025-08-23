@@ -1,0 +1,48 @@
+
+nav {
+    width: 100%;  
+    position: sticky;
+    top: 0;
+    margin: 0;
+
+}
+
+.navbar {
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    top: 0;
+    z-index: 1000;
+    font-size: 1.25rem;
+    font-weight: 600;
+    background-color: var(--uci-gray-light);
+    color: var(--uci-darkblue);
+}
+
+.navbar-container {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+
+}
+
+.navbar-link,
+.navbar-link:link,
+.navbar-link:visited {
+  color: inherit;           /* remove blue/purple */
+  text-decoration: none;    /* remove underline */
+}
+
+.navbar-link:hover {
+  color: var(--uci-gold);   /* optional hover effect */
+}
+
+.navbar-link:focus {
+  outline: 2px solid var(--uci-gold);
+  outline-offset: 2px;
+}
+
+.navbar-link:active {
+  color: inherit;
+}

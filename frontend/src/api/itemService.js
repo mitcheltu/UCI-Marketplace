@@ -15,6 +15,11 @@ export const fetchItemById = async (itemId) => {
   return response.data;
 };
 
+export const fetchItemsByUserId = async (userId) => {
+  const response = await axios.get(`${BASE_URL}/items/user/${userId}`);
+  return response.data;
+};
+
 export const createItem = async ({ user_id, name, description, price, category, image }) => {
   const formData = new FormData();
   formData.append("name", name);
@@ -30,3 +35,12 @@ export const createItem = async ({ user_id, name, description, price, category, 
 
   return res.data;
 };
+
+export const requestItemTrade = async (requesterID, receiverID, requesterItems, receiverItems) => {
+  const response = await axios.post(`${BASE_URL}/items/request-trade/${requesterID}`, {
+    receiverID,
+    requesterItems,
+    receiverItems
+  });
+  return response.data;
+}

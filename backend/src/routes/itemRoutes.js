@@ -15,4 +15,11 @@ router.get('/', itemController.fetchAllItems);
 // GET /api/items/:id - Fetch item by ID
 router.get('/:id', itemController.fetchItemById);
 
+// GET /api/items/user/:userId - Fetch items by user ID
+router.get('/user/:userId', itemController.fetchItemsByUserId);
+
+
+// POST /api/items/request-trade/:id - Request item trade
+router.post('/request-trade/:id', itemController.requestItemTrade);
+
 module.exports = router;

@@ -12,7 +12,7 @@ get items query
 */
 
 CREATE TABLE IF NOT EXISTS Users (
-    user_id SERIAL PRIMARY KEY,
+    user_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
@@ -20,13 +20,13 @@ CREATE TABLE IF NOT EXISTS Users (
 );
 
 CREATE TABLE IF NOT EXISTS Items (
-    item_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    item_id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID NOT NULL,
     name VARCHAR(100) NOT NULL,
     description TEXT,
     price DECIMAL(10, 2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    category VARCHAR(50) NOT NULL,
+    category VARCHAR(50) CHECK (category IN ('Electronics', 'Furniture', 'Clothing', 'Books', 'Toys', 'Sports', 'Stationery', 'Other')),
     image_url VARCHAR(255),
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE
 );

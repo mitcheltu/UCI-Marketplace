@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createUser } from "../api/userService";
+import "./Modal.css";
 
 function CreateUser( {isActive, onClose}) {
     const [user, setUser] = useState("");
@@ -24,6 +25,7 @@ function CreateUser( {isActive, onClose}) {
     }
 
     return(
+        <div className={`create-item-modal-overlay ${isActive ? 'active' : ''}`}>
         <div className={`create-item-modal ${isActive ? 'active' : ''}`}>
           
             <button id="create-item-modal-close-button" onClick={onClose}>Close</button>
@@ -33,6 +35,7 @@ function CreateUser( {isActive, onClose}) {
                 <input type="text" placeholder={"Password"} onChange={(e) => setPassword(e.target.value)}></input>
                 <input type="submit" value={"submit"}></input>
             </form>
+        </div>
         </div>
     )
 }

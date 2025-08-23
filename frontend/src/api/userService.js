@@ -14,6 +14,11 @@ export const fetchUserById = async (userId) => {
   return response.data;
 };
 
+export const fetchUsersByItemIds = async (itemIds) => {
+  const response = await axios.post(`${BASE_URL}/users/by-item-ids`, { itemIds });
+  return response.data;
+};
+
 export const createUser = async (userData) => {
   const response = await axios.post(`${BASE_URL}/users`, userData);
   return response.data;
