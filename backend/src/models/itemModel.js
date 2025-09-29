@@ -22,7 +22,7 @@ async function getItemsByUserId(userId) {
   return result.rows;
 }
 
-async function addItem(item) {
+async function addItem({item}) {
   const { user_id, name, description, price, category, image_url } = item;
   const result = await pool.query(
     
@@ -58,27 +58,7 @@ async function deleteItem(itemId) {
     return result.rows[0];
 }
 
-async function requestTrade(requesterID, receiverID, requesterItems, receiverItems) {
-    const result = await pool.query(
-        'INSERT INTO trade_requests (requester_id, receiver_id, status) VALUES ($1, $2, $3) RETURNING *;',
-        [requesterID, receiverID, 'pending']
-    );
-    const tradeRequest = result.rows[0];
-    const requestID = tradeRequest.request_id;
-    for (const itemId of requesterItems) {
-        await pool.query(
-            'INSERT INTO trade_items (request_id, item_id, owner_role) VALUES ($1, $2, $3);',
-            [requestID, itemId, 'requester']
-        );
-    }
-    for (const itemId of receiverItems) {
-        await pool.query(
-            'INSERT INTO trade_items (request_id, item_id, owner_role) VALUES ($1, $2, $3);',
-            [requestID, itemId, 'receiver']
-        );
-    }
-    return tradeRequest;
-}
+
 
 module.exports = {
     getAllItems,
@@ -87,6 +67,5 @@ module.exports = {
     getItemsByUserId,
     addItem,
     updateItem,
-    deleteItem,
-    requestTrade
+    deleteItem
 };

@@ -3,23 +3,23 @@ const itemController = require("../controllers/itemController.js");
 
 const express = require('express');
 const router = express.Router();
+const { authenticate } = require("../middleware/auth.js");
 
 
 // POST /api/items - Create a new item
-router.post("/", upload.single("image"), itemController.createItem);
+router.post("/", authenticate, upload.single("image"), itemController.createItem);
 
 
 // GET /api/items - Fetch all items
-router.get('/', itemController.fetchAllItems);
+router.get('/', authenticate, itemController.fetchAllItems);
 
 // GET /api/items/:id - Fetch item by ID
-router.get('/:id', itemController.fetchItemById);
+router.get('/:id', authenticate, itemController.fetchItemById);
 
 // GET /api/items/user/:userId - Fetch items by user ID
-router.get('/user/:userId', itemController.fetchItemsByUserId);
+router.get('/user/:userId', authenticate, itemController.fetchItemsByUserId);
 
 
-// POST /api/items/request-trade/:id - Request item trade
-router.post('/request-trade/:id', itemController.requestItemTrade);
+
 
 module.exports = router;

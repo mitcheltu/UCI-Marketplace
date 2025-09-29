@@ -1,9 +1,8 @@
-import CreateItem from "../components/CreateItem";
+
 import { useState } from "react";
 import CreateUser from "../components/CreateUser";
 import InfoTable from "../components/InfoTable";
 import ItemDisplay from "../components/ItemDisplay";
-import TradeItem from "../components/TradeItem";
 
 import { fetchAllUsers } from "../api/userService";
 import { fetchAllItems } from "../api/itemService";
@@ -11,15 +10,19 @@ import { fetchAllItems } from "../api/itemService";
 import "./Home.css";
 
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function HomePage() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     const [isCreateUserOpen, setCreateUserOpen] = useState(false);
-    const [isCreateItemOpen, setCreateItemOpen] = useState(false);
-    const [isCreateTradeOpen, setCreateTradeOpen] = useState(false);
     const [userData, setUserData] = useState([]);
     const [itemData, setItemData] = useState([]);
-    const [user_id, setUserId] = useState("");
-    const [receiverID, setReceiverID] = useState("");
+    const search = params.get("search") || "";
+    const seller = params.get("seller") || "";
+    const category = params.get("category") || "";
+    console.log("Search params:", { search, seller, category });
 
     useEffect(() => {
         const getUsers = async () => {
@@ -37,13 +40,19 @@ function HomePage() {
         const getItems = async () => {
             try {
                 const items = await fetchAllItems();
-                setItemData(items);
+                const filteredItems = items.filter(item => 
+                    item.name.includes(search) || 
+                    item.category.includes(category) || 
+                    item.user_id.includes(seller)
+                );
+                setItemData(filteredItems);
+                console.log("set itemData: ", filteredItems);
             } catch (error) {
                 console.error("Error fetching items:", error);
             }
         };
         getItems();
-    }, []);
+    }, [search, seller, category]);
     
     return(
         <div className="Home-Body" >
@@ -53,27 +62,19 @@ function HomePage() {
                 isActive={isCreateUserOpen}
                 onClose={() => setCreateUserOpen(false)}
                 />
-                <button onClick={() => setCreateItemOpen(true)}>Create Item!</button>
-                <CreateItem 
-                isActive={isCreateItemOpen}
-                onClose={() => setCreateItemOpen(false)}
-                />
-                <input type="text" placeholder="Your User ID" onChange={(e) => setUserId(e.target.value)} />
-                <TradeItem
-                isActive={isCreateTradeOpen}
-                onClose={() => setCreateTradeOpen(false)}
-                userId={user_id}
-                receiverID={receiverID}
-                />
+                
+                <input type="text" placeholder="Your User ID" onChange={(e) => {console.log(e.target.value); sessionStorage.setItem('userId', e.target.value)}} />
+    
             </div>
+
             <div className="info-display" >
                 <InfoTable 
                     columns={[
                         {header: "Username", accessor: "username"},
                         {header: "UserID", accessor: "user_id"},
                         {header: "Email", accessor: "email"},
-                        {header: "Hashed-Password", accessor: "password"}
-                        ]} 
+                        {header: "FirebaseUID", accessor: "firebase_uid"}
+                        ]}
                     data={userData} />
                 <InfoTable 
                     columns={[
@@ -84,12 +85,15 @@ function HomePage() {
                     data={itemData} />
             </div>
             
+
+            
             <div className="item-display-section">
                 {itemData.map((item) => (
-                    <div className="item-display-section-{item.item_id}" style={{border: "1px solid #ccc", margin: "20px"}}>
-                        <button onClick={() => {setReceiverID(item.user_id); setCreateTradeOpen(true);}}>Trade Item</button>
+                    <div className="item-display-section-{item.item_id}" style={{border: "1px solid transparent", margin: "10px"}}>
+                        <Link to={"/ItemInfo"} state={{itemData: item}}>
+                            <ItemDisplay key={item.item_id} item={item} />
+                        </Link>
                         
-                        <ItemDisplay key={item.item_id} item={item} />
                     </div>
                 ))}
             </div>

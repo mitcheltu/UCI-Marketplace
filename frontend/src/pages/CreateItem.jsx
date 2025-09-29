@@ -1,12 +1,12 @@
 import { useState } from "react";
-import "./Modal.css";
 import { createItem } from "../api/itemService";
+import "./CreateItem.css"
 
-function CreateItem( {isActive, onClose}) {
+function CreateItem() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [category, setCategory] = useState("");
-    const [user_id, setUser_id] = useState("");
+    const userId = sessionStorage.getItem("userId");
     const [price, setPrice] = useState(0);
     const [image, setImage] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -15,21 +15,19 @@ function CreateItem( {isActive, onClose}) {
         e.preventDefault();
 
         if (!image) return alert("Please select an image");
-
-        if (name && description && category && user_id) {
+        console.log("userId: ", userId);
+        if (name && description && category && userId) {
             try {
-                 // for now, set price to 0, change later
-                const newItem = await createItem({ user_id, name, description, price, category, image });
+                    // for now, set price to 0, change later
+                const newItem = await createItem({ user_id: userId, name, description, price, category, image });
                 console.log("Item created:", newItem);
 
                 setName("");
                 setDescription("");
                 setCategory("");
-                setUser_id("");
                 setPrice(0);
                 setImage(null);
                 setPreview(null);
-                onClose();
             } catch (err) {
                 console.error("Error creating item:", err);
             }
@@ -38,9 +36,6 @@ function CreateItem( {isActive, onClose}) {
             alert("Please fill in all fields");
         }
     }
-
-    
-
 
     const handleChangeImg = (e) => {
         const selectedFile = e.target.files[0];
@@ -54,14 +49,9 @@ function CreateItem( {isActive, onClose}) {
         }
     };
     
-
     return(
-        <div className={`create-item-modal-overlay ${isActive ? 'active' : ''}`}>
-        <div className={`create-item-modal ${isActive ? 'active' : ''}`}>
-            <button id="create-item-modal-close-button" onClick={onClose}>Close</button>
+        <div className="create-item-container">
             <form onSubmit={handleCreateItem} >
-                <input type="text" placeholder={"UserID"} onChange={(e) => setUser_id(e.target.value)}></input>
-
                 <input type="text" placeholder={"Name"} onChange={(e) => setName(e.target.value)}></input>
 
                 <input type="text" placeholder={"Description"} onChange={(e) => setDescription(e.target.value)}></input>
@@ -89,10 +79,9 @@ function CreateItem( {isActive, onClose}) {
                 )}   
                 <input type="submit" value={"submit"}></input>
             </form>
-            
-        </div>
         </div>
     )
 }
 
 export default CreateItem;
+

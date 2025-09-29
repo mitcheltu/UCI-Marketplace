@@ -59,11 +59,6 @@ exports.modifyItem = async (itemId, itemData) => {
   return await itemModel.updateItem(itemId, itemData);
 };
 
-// Request item trade between users
-exports.requestItemTrade = async (requesterID, receiverID, requesterItems, receiverItems) => {
-  return await itemModel.requestTrade(requesterID, receiverID, requesterItems, receiverItems);
-}
-
 
 // Get item by ID
 exports.fetchItemById = async (itemId) => {

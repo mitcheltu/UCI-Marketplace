@@ -1,3 +1,4 @@
+import "./InfoTable.css"
 
 function InfoTable({ columns, data }) {
     // columns should be an array of objects with 'header' and 'accessor' properties

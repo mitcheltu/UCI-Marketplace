@@ -1,0 +1,120 @@
+/* CreateItem component styles with explicit colors */
+
+.create-item-container {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.create-item-container form {
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  color: #111827; /* gray-900 */
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  padding: 1.25rem;
+  display: grid;
+  gap: 0.875rem;
+  box-sizing: border-box;
+}
+
+/* Inputs and selects */
+.create-item-container input[type="text"],
+.create-item-container input[type="number"],
+.create-item-container input[type="file"],
+.create-item-container select {
+  width: 100%;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  background: #ffffff;
+  color: #111827; /* gray-900 */
+  border-radius: 10px;
+  padding: 0.625rem 0.75rem;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.create-item-container input::placeholder,
+.create-item-container textarea::placeholder {
+  color: #9ca3af; /* gray-400 */
+}
+
+.create-item-container input[type="text"]:focus,
+.create-item-container input[type="number"]:focus,
+.create-item-container input[type="file"]:focus,
+.create-item-container select:focus {
+  border-color: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Category label */
+.create-item-container span {
+  font-weight: 600;
+  color: #374151; /* gray-700 */
+  margin-top: 0.25rem;
+}
+
+/* File input tweaks */
+.create-item-container input[type="file"]::-webkit-file-upload-button {
+  background: #f3f4f6; /* gray-100 */
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.create-item-container input[type="file"]::-webkit-file-upload-button:hover {
+  background: #e5e7eb; /* gray-200 */
+}
+
+/* Preview block */
+.create-item-container p {
+  margin: 0.25rem 0 0.5rem;
+  color: #374151; /* gray-700 */
+  font-weight: 600;
+}
+
+.create-item-container img {
+  display: block;
+  max-width: 260px;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6; /* gray-100 */
+}
+
+/* Submit button */
+.create-item-container input[type="submit"] {
+  background: #3b82f6; /* blue-500 */
+  color: #ffffff;
+  border: 1px solid #3b82f6;
+  border-radius: 10px;
+  padding: 0.625rem 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.create-item-container input[type="submit"]:hover {
+  background: #2563eb; /* blue-600 */
+  border-color: #2563eb;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+}
+
+.create-item-container input[type="submit"]:active {
+  transform: translateY(0.5px);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .create-item-container form {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+}

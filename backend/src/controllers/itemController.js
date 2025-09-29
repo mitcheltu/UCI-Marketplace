@@ -52,17 +52,3 @@ exports.fetchItemsByUserId = async (req, res) => {
   }
 }
 
-// POST /api/items/request-trade/:id
-exports.requestItemTrade = async (req, res) => {
-  const requesterID = req.params.requesterID;
-  const receiverID = req.params.receiverId;
-  const requesterItems = req.params.requesterItems;
-  const receiverItems = req.params.receiverItems;
-  try {
-    const tradeRequest = await itemService.requestItemTrade(requesterID, receiverID, requesterItems, receiverItems);
-    res.status(200).json(tradeRequest);
-  } catch (err) {
-    console.error('Error requesting item trade:', err);
-    res.status(500).json({ error: 'Failed to request item trade' });
-  }
-};

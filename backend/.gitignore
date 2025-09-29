@@ -33,3 +33,6 @@ coverage/
 # AWS credentials (never commit!)
 *.pem
 *.key
+
+# Firebase service account keys (never commit!)
+serviceAccountKey.json

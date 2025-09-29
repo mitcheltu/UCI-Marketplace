@@ -19,7 +19,8 @@ nav {
 }
 
 .navbar-container {
-    padding: 1rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,3 +47,132 @@ nav {
 .navbar-link:active {
   color: inherit;
 }
+
+.navbar-title {
+  height: 52.5px;
+}
+
+.search-wrapper {
+    width: 50%;
+    transition: all 0.4s ease;
+    align-self: center;
+    padding-top: 1rem;
+    padding-bottom: 0;
+  }
+
+  .search-container {
+    width: 100%;
+  }
+
+  .search-container input {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    outline: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: 0.3s ease;
+    background-color: #fff;
+    color: #333;
+    padding-left: 20px;
+    padding-right: 15px;
+  }
+
+  .search-container input:focus {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    /*padding-left: 20px;*/
+    width: 100%;
+  }
+
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+    margin-top: 0px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 15px;
+    max-height: 0;
+    opacity: 0;
+    transform: scaleY(0.9);
+    transform-origin: top;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: #333;
+    pointer-events: none; 
+  }
+
+  .search-wrapper:focus-within .filters {
+    max-height: 300px;
+    opacity: 1;
+    transform: scaleY(1);
+    pointer-events: auto
+  }
+
+  .filters label {
+    display: block;
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+    height: 22px;
+    align-items: center;
+  }
+
+  .filters label input {
+    width: 50%;
+    border: 1px solid #e5e7eb; /* gray-200 */
+    background: #ffffff;
+    color: #111827; /* gray-900 */
+    border-radius: 10px;
+    padding: 0 0.75rem;
+    margin-left: 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .filters label select {
+    width: 50%;
+    border: 1px solid #e5e7eb; /* gray-200 */
+    background: #ffffff;
+    color: #111827; /* gray-900 */
+    border-radius: 10px;
+    padding: 0 0.75rem;
+    margin-left: 20px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-sizing: border-box;
+  }
+
+  .standard_button {
+    color: #003366;
+    font-size: 20px;
+    background-color: transparent;
+    box-shadow: none;
+    border: none; /* #003366 solid 2px*/
+    border-radius: 50px;
+    padding: 0px 20px;
+  }
+
+  .standard_button:hover {
+    color: #FFC72C;
+  }
+
+  .CreateItem-Navbar-Button {
+    margin-left: 20px;
+    height: 52.5px;
+    align-self: center;
+  }
+
+  .TradeItem-Navbar-Button {
+    height: 52.5px;
+    align-self: center;
+  }
+
+  .Login-Navbar-Button {
+    height: 52.5px;
+    align-self: center;
+  }

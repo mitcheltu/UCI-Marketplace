@@ -15,13 +15,27 @@ async function getUserById(userId) {
   return result.rows[0];
 }
 
-async function addUser(user) {
-  const { username, email, password } = user;
-  const result = await pool.query(
-    'INSERT INTO Users (username, email, password) VALUES ($1, $2, $3) RETURNING *;',
-    [username, email, password]
+async function addUser({ userData }) {
+  const { firebase_uid, username, email } = userData;
+
+  const safeUsername = username || (email ? email.split("@")[0] : "user");
+  const safeEmail = email || null;
+
+  const { rows } = await pool.query(
+    "SELECT * FROM users WHERE firebase_uid = $1",
+    [firebase_uid]
   );
-  return result.rows[0];
+
+  if (rows.length > 0) return rows[0];
+
+  const insert = await pool.query(
+    `INSERT INTO users (firebase_uid, username, email, created_at)
+     VALUES ($1, $2, $3, NOW())
+     RETURNING *`,
+    [firebase_uid, safeUsername, safeEmail]
+  );
+
+  return insert.rows[0];
 }
 
 async function updateUser(userId, user) {

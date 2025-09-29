@@ -12,9 +12,7 @@ exports.fetchTenUsers = async () => {
 
 // Create a new user
 exports.createUser = async (userData) => {
-  // Hash the password before storing it
-  const hashedPassword = await bcrypt.hash(userData.password, 10);
-  userData.password = hashedPassword;
+  console.log("In userService createUser with data:", userData);
   return await userModel.addUser(userData);
 };
 

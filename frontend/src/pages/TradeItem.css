@@ -1,0 +1,217 @@
+/* TradeItem component styles - explicit colors (no CSS variables) */
+
+.trade-item-container {
+  padding: 1.5rem;
+  background: #f8fafc; /* slate-50 */
+  color: #111827; /* gray-900 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trade-item-form {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb; /* gray-200 */
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+}
+
+.trade-item-form > h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.trade-item-form input[type="text"] {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #111827;
+  border-radius: 10px;
+  padding: 0.625rem 0.75rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 1rem;
+}
+
+.trade-item-form input[type="text"]:focus {
+  border-color: #3b82f6; /* blue-500 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Two columns: requester on the left, receiver on the right */
+.trade-item-display {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .trade-item-display {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Column panels */
+.requester-items,
+.receiver-items {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 1rem;
+  min-height: 420px;
+}
+
+.requester-items > h2,
+.receiver-items > h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+/* Scrollable grids in each column */
+.requester-items-display,
+.receiver-items-display {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  padding: 0.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb; /* gray-50 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  align-items: stretch;
+  align-content: start;
+  min-width: 0; /* prevent horizontal overflow from children */
+}
+
+/* Selection containers around ItemDisplay cards */
+.trade-item-display-section {
+  position: relative;
+  display: block;
+  padding: 0; /* Let ItemDisplay control its own padding */
+  border: 2px dashed transparent; /* Avoid double borders with ItemDisplay */
+  border-radius: 10px;
+  background: transparent;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  cursor: pointer;
+  overflow: hidden; /* keep inner card contained */
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.trade-item-display-section:focus-visible {
+  outline: 3px solid #3b82f6; /* blue-500 */
+  outline-offset: 2px;
+}
+
+.trade-item-display-section .item-display {
+  width: 100%;
+  height: auto; /* let content define height to avoid overlap */
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+/* Ensure images don't cause overflow or layout shift */
+.trade-item-display-section img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.trade-item-display-section:hover .item-display {
+  border-color: #3b82f6;
+}
+
+/* Active/selected visual state */
+.trade-item-display-section.active {
+  border-color: #3b82f6;
+}
+
+.trade-item-display-section.active .item-display {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) inset;
+}
+
+.trade-item-display-section.active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 2px #3b82f6;
+  pointer-events: none;
+}
+
+/* Bottom bar split into requester and receiver halves */
+.selected-trade-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+@media (max-width: 900px) {
+  .selected-trade-items {
+    grid-template-columns: 1fr;
+  }
+}
+
+.selected-trade-items-requester,
+.selected-trade-items-receiver {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  min-height: 60px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Vertical divider between halves on wide screens */
+.selected-trade-items-requester {
+  border-right: 1px solid #e5e7eb;
+}
+
+@media (max-width: 900px) {
+  .selected-trade-items-requester {
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+}
+
+.selected-trade-items-requester button,
+.selected-trade-items-receiver button {
+  appearance: none;
+  border: 1px solid #e5e7eb;
+  background: #e5e7eb; /* gray-200 */
+  color: #1f2937; /* gray-800 */
+  padding: 0.4rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.selected-trade-items-requester button:hover,
+.selected-trade-items-receiver button:hover {
+  background: #3b82f6; /* blue-500 */
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+}
